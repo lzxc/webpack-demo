@@ -5,6 +5,7 @@ import router from './router'
 import App from './App.vue'
 
 import Api from '@/common/apiClient'
+
 Vue.prototype.$http = Api.request
 
 import(

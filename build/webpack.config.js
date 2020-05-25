@@ -42,15 +42,16 @@ module.exports = {
             },
             // jsx
             {
-                test: /\.js$/,
+                test: /\.js|jsx$/,
                 loader: 'babel-loader',
                 options: {
-                    // cacheDirectory: true
+                    cacheDirectory: true
                 },
-                include: [
-                    // pathResolve('node_modules/three'),
-                    pathResolve('src')
-                ],
+                // include: [
+                //     // pathResolve('node_modules/three'),
+                //     pathResolve('src')
+                // ],
+                exclude: /node_modules/
             },
             // css
             {

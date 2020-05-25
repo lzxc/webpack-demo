@@ -19,11 +19,6 @@ export default {
       this.$http({
         url: '/api/user',
         type: 'get',
-        data: {
-          params: {
-            token: '123123123'
-          }
-        }
       }).then(res => {
         console.log('res成功', res);
       })

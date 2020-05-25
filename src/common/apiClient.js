@@ -1,13 +1,18 @@
 import Axios from "axios"
 const qs = require('querystring')
 
+let $http = null;
+
 class ApiClient {
     constructor(config = DEFAULTCONFIG) {
+        this.init()
         this.config = config
-        this.$http = Axios.create(config)
-        this.$http.interceptors.request.use(ApiClient.interceptorsRequest, ApiClient.interceptorsRequestErr)
-        this.$http.interceptors.response.use(ApiClient.interceptorsRespond, ApiClient.interceptorsRespondErr)
-        this.request = this.request.bind(this)
+    }
+
+    init() {
+        $http = Axios.create(this.config)
+        $http.interceptors.request.use(ApiClient.interceptorsRequest, ApiClient.interceptorsRequestErr)
+        $http.interceptors.response.use(ApiClient.interceptorsRespond, ApiClient.interceptorsRespondErr)
     }
 
     request({ url, data = {}, type = 'post', showError = true, showLoading = true, specialCode, config: config }) {
@@ -23,7 +28,7 @@ class ApiClient {
                 // const nowTime = new Date().getTime()
                 // data.params ? data.params.nowTime = nowTime : data = { params: { nowTime } }
             }
-            this.$http[type](url, data, config)
+            $http[type](url, data, config)
                 .then((response) => {
                     const { code, message } = response
                     if (showLoading) {
@@ -33,14 +38,15 @@ class ApiClient {
                         resolve(response.data)
                         return
                     } else {
-                        reject(response)
                         if (code === '401') {
                             console.log('用户权限过时了');
                             alert('用户权限过时了')
+                            return
                         }
                         if (showError && code !== specialCode) {
                             console.log('个别接口的特殊成功code不等于当前返回code，需弹窗');
                         }
+                        reject(response)
                     }
                 },
                     (err) => {
@@ -72,7 +78,6 @@ class ApiClient {
     }
 
     static interceptorsRespond(response) {
-        console.log('apiClient->响应成功拦截');
         return response.data
     }
 
