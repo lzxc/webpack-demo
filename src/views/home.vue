@@ -17,7 +17,7 @@ export default {
     btn() {
       console.log('点击');
       this.$http({
-        url: '/api/user',
+        url: '/api/user?123123',
         type: 'get',
       }).then(res => {
         console.log('res成功', res);

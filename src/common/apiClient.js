@@ -5,11 +5,7 @@ let $http = null;
 
 class ApiClient {
     constructor(config = DEFAULTCONFIG) {
-        this.init()
         this.config = config
-    }
-
-    init() {
         $http = Axios.create(this.config)
         $http.interceptors.request.use(ApiClient.interceptorsRequest, ApiClient.interceptorsRequestErr)
         $http.interceptors.response.use(ApiClient.interceptorsRespond, ApiClient.interceptorsRespondErr)
@@ -25,6 +21,7 @@ class ApiClient {
                 return
             }
             if (type === 'get') {
+                data = Object.keys(data).length ? { params: data } : {}
                 // const nowTime = new Date().getTime()
                 // data.params ? data.params.nowTime = nowTime : data = { params: { nowTime } }
             }
