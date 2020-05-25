@@ -13,7 +13,12 @@ app.all('*', (req, res, next) => {
 })
 
 app.get('/user', (req, res) => {
-    res.json({ code: '000000', message: '成功', data: { name: '小明' } })
+    console.log(req.query, 'query', req._parsedUrl, 'parsedUrl');
+    if (req.query.token || req._parsedUrl.search) {
+        res.json({ code: '000000', message: '成功', data: { name: '小明' } })
+        return
+    }
+    res.json({ code: '000001', message: '缺少token', data: null })
 })
 
 app.listen(4000, function () {

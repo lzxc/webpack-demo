@@ -1,6 +1,7 @@
 const path = require('path')
 const pathResolve = target => path.resolve(__dirname, '..', target)
 const isDev = process.env.NODE_ENV === 'development';
+const vueLoaderPlugin = require('vue-loader/lib/plugin')
 const htmlConfig = require(pathResolve('public/config.js'))[isDev ? 'dev' : 'build']
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -20,22 +21,34 @@ module.exports = {
     resolve: {
         alias: {
             '@': pathResolve('src'),
-            'assets': pathResolve('src/assets')
+            'assets': pathResolve('src/assets'),
+            "views": pathResolve('src/views')
         },
         extensions: ['.vue', '.js', '.json']
     },
     module: {
         noParse: /jquery|lodash/,
         rules: [
+            {
+                test: /\.vue$/,
+                use: [{
+                    loader: 'vue-loader',
+                    options: {
+                        compilerOptions: {
+                            preserveWhitespace: false
+                        }
+                    }
+                }]
+            },
             // jsx
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 options: {
-                    cacheDirectory: true
+                    // cacheDirectory: true
                 },
                 include: [
-                    pathResolve('node_modules/three'),
+                    // pathResolve('node_modules/three'),
                     pathResolve('src')
                 ],
             },
@@ -43,7 +56,7 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: [
-                    isDev ? 'style-loader' : {
+                    isDev ? 'vue-style-loader' : {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
                             publicPath: '../',
@@ -54,13 +67,13 @@ module.exports = {
                     'css-loader',
                     'postcss-loader',
                 ],
-                exclude: /node_modules/
+                // exclude: /node_modules/
             },
             // less
             {
                 test: /\.less$/,
                 use: [
-                    isDev ? 'style-loader' : {
+                    isDev ? 'vue-style-loader' : {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
                             publicPath: pathResolve('dist'),
@@ -72,7 +85,7 @@ module.exports = {
                     // 'postcss-loader',
                     'less-loader',
                 ],
-                exclude: /node_modules/
+                // exclude: /node_modules/
             },
             // 静态图片
             {
@@ -97,6 +110,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new vueLoaderPlugin(),
         new CleanWebpackPlugin({
             cleanOnceBeforeBuildPatterns: ['**/*', '!img', '!img/**', '!dll', '!dll/**']
         }),

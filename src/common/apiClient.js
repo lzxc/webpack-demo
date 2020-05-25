@@ -2,11 +2,12 @@ import Axios from "axios"
 const qs = require('querystring')
 
 class ApiClient {
-    constructor(config) {
+    constructor(config = DEFAULTCONFIG) {
         this.config = config
         this.$http = Axios.create(config)
         this.$http.interceptors.request.use(ApiClient.interceptorsRequest, ApiClient.interceptorsRequestErr)
         this.$http.interceptors.response.use(ApiClient.interceptorsRespond, ApiClient.interceptorsRespondErr)
+        this.request = this.request.bind(this)
     }
 
     request({ url, data = {}, type = 'post', showError = true, showLoading = true, specialCode, config: config }) {
@@ -39,7 +40,6 @@ class ApiClient {
                         }
                         if (showError && code !== specialCode) {
                             console.log('个别接口的特殊成功code不等于当前返回code，需弹窗');
-                            alert('个别接口的特殊成功code不等于当前返回code，需弹窗')
                         }
                     }
                 },
@@ -49,7 +49,6 @@ class ApiClient {
                         }
                         if (showError) {
                             console.log('网络异常');
-                            alert('网络异常')
                         }
                         reject({
                             code: 'requestFail',
@@ -60,6 +59,7 @@ class ApiClient {
     }
 
     static interceptorsRequest(config) {
+        console.log('apiClient->请求成功拦截');
         if (config.method === 'get') {
             config.data = qs.stringify(config.data)
         }
@@ -67,28 +67,28 @@ class ApiClient {
     }
 
     static interceptorsRequestErr(error) {
+        console.log('apiClient->请求失败拦截');
         return Promise.reject(error)
     }
 
     static interceptorsRespond(response) {
+        console.log('apiClient->响应成功拦截');
         return response.data
     }
 
     static interceptorsRespondErr(error) {
+        console.log('apiClient->响应失败拦截');
         return Promise.reject(error)
     }
 }
-class cild extends ApiClient {
-    constructor() {
-        super()
-    }
-}
-console.log(cild, 'cild');
-export default new ApiClient({
+
+const DEFAULTCONFIG = {
     // baseURL: 'http://localhost:4000',
     timeout: 6000,
     headers: {
         'Content-Type': 'application/json;chartset=utf-8'
     },
     // withCredentials: true
-})
+}
+
+export default new ApiClient(DEFAULTCONFIG)

@@ -57,8 +57,8 @@ module.exports = smp.wrap(merge(WebpackConfig, {
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: 'css/[name].[hash].css',
-            chunkFilename: 'css/[id].css'
+            filename: 'style/[name].[hash].css',
+            chunkFilename: 'style/[id].css'
         }),
     ]
 }))
