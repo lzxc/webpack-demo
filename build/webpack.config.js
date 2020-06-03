@@ -1,13 +1,16 @@
 const path = require('path')
-const pathResolve = target => path.resolve(__dirname, '..', target)
-const isDev = process.env.NODE_ENV === 'development';
-const vueLoaderPlugin = require('vue-loader/lib/plugin')
-const htmlConfig = require(pathResolve('public/config.js'))[isDev ? 'dev' : 'build']
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWepackPlugin = require('copy-webpack-plugin')
-const webpack = require('webpack')
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
+const vueLoaderPlugin = require('vue-loader/lib/plugin')
+
+const isDev = process.env.NODE_ENV === 'development';
+
+const pathResolve = target => path.resolve(__dirname, '..', target)
+const htmlConfig = require(pathResolve('public/config.js'))[isDev ? 'dev' : 'build']
 
 module.exports = {
     entry: pathResolve('src/index.js'),
@@ -17,6 +20,7 @@ module.exports = {
     },
     externals: {
         'jquery': 'jQuery',
+        '_': 'lodash'
     },
     resolve: {
         alias: {
@@ -24,21 +28,17 @@ module.exports = {
             'assets': pathResolve('src/assets'),
             "views": pathResolve('src/views')
         },
-        extensions: ['.vue', '.js', '.json']
+        extensions: ['.js', '.json', '.vue']
     },
     module: {
-        noParse: /jquery|lodash/,
+        // noParse: /jquery|lodash/,
         rules: [
             {
                 test: /\.vue$/,
                 use: [{
                     loader: 'vue-loader',
-                    options: {
-                        compilerOptions: {
-                            preserveWhitespace: false
-                        }
-                    }
-                }]
+                }],
+                exclude: /node_modules/
             },
             // jsx
             {
@@ -51,7 +51,7 @@ module.exports = {
                 //     // pathResolve('node_modules/three'),
                 //     pathResolve('src')
                 // ],
-                exclude: /node_modules/
+                exclude: /node_modules/,
             },
             // css
             {
@@ -60,7 +60,7 @@ module.exports = {
                     isDev ? 'vue-style-loader' : {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
-                            publicPath: '../',
+                            publicPath: pathResolve('dist'),
                             hmr: isDev,
                             reloadAll: true
                         }
@@ -68,7 +68,6 @@ module.exports = {
                     'css-loader',
                     'postcss-loader',
                 ],
-                // exclude: /node_modules/
             },
             // less
             {
@@ -84,9 +83,13 @@ module.exports = {
                     },
                     'css-loader',
                     // 'postcss-loader',
-                    'less-loader',
+                    {
+                        loader: 'less-loader',
+                        options: {
+                            javascriptEnabled: true
+                        }
+                    },
                 ],
-                // exclude: /node_modules/
             },
             // 静态图片
             {
@@ -126,7 +129,7 @@ module.exports = {
             ],
         ),
         new webpack.DllReferencePlugin({
-            manifest: pathResolve('dist/dll/manifest.json')
+            manifest: pathResolve('dll/vendor-manifest.json')
         }),
         new HtmlWebpackPlugin({
             template: pathResolve('public/index.html'),
@@ -136,6 +139,12 @@ module.exports = {
                 collapseWhitespace: false, //是否折叠空白
             },
             config: htmlConfig.template
-        })
+        }),
+        new AddAssetHtmlPlugin([
+            {
+                filepath: pathResolve('dll/*.js'),
+                outputPath: pathResolve('dist/dll'),
+            }
+        ])
     ]
 }

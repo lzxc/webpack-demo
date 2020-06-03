@@ -14,14 +14,14 @@ module.exports = smp.wrap(merge(WebpackConfig, {
     devtool: 'cheap-module-source-map',
     optimization: {
         minimizer: [
-            // new UglifyJsPlugin(
-            //     {
-            //         //压缩js
-            //         // cache: true,
-            //         parallel: true,
-            //         sourceMap: true
-            //     }
-            // ),
+            new UglifyJsPlugin(
+                {
+                    //压缩js
+                    // cache: true,
+                    parallel: true,
+                    sourceMap: true
+                }
+            ),
             new OptimizeCssAssetsPlugin({})
         ],
         runtimeChunk: {
@@ -29,30 +29,38 @@ module.exports = smp.wrap(merge(WebpackConfig, {
         },
         splitChunks: {
             chunks: 'all',
-            // cacheGroups: {
-            //     vendor: {
-            //         name: 'vendor',
-            //         chunks: 'initial',
-            //         priority: 1, //设置优先级，首先抽离第三方模块
-            //         test: /node_modules/,
-            //         minSize: 0,
-            //         minChunks: 1 //最少引入了1次
-            //     },
-            //     'modules': {
-            //         name: 'modules',
-            //         chunks: 'initial',
-            //         priority: 5,
-            //         test: /[\/]node_modules[\/]core-js-pure[\/]modules[\/]/,
-            //         minSize: 100,
-            //         minChunks: 1 //重复引入了几次
-            //     },
-            //     common: {
-            //         name: 'common',
-            //         chunks: 'initial',
-            //         minSize: 100, //大小超过100个字节
-            //         minChunks: 3 //最少引入了3次
-            //     }
-            // }
+            cacheGroups: {
+                libs: {
+                    name: 'chunk-libs',
+                    chunks: 'initial',
+                    priority: 1, //设置优先级，首先抽离第三方模块
+                    test: /node_modules/,
+                    minSize: 0,
+                    minChunks: 1 //最少引入了1次
+                },
+                'moment': {
+                    name: 'moment',
+                    chunks: 'initial',
+                    priority: 5,
+                    test: /[\/]node_modules[\/]moment[\/]/,
+                    minSize: 100,
+                    minChunks: 1 //重复引入了几次
+                },
+                //     'modules': {
+                //         name: 'modules',
+                //         chunks: 'initial',
+                //         priority: 5,
+                //         test: /[\/]node_modules[\/]core-js-pure[\/]modules[\/]/,
+                //         minSize: 100,
+                //         minChunks: 1 //重复引入了几次
+                //     },
+                // common: {
+                //     name: 'common',
+                //     chunks: 'initial',
+                //     minSize: 100, //大小超过100个字节
+                //     minChunks: 3 //最少引入了3次
+                // }
+            }
         }
     },
     plugins: [
