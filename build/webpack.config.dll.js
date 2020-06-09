@@ -1,7 +1,8 @@
 const webpack = require('webpack')
 const path = require('path')
-const pathResolve = target => path.resolve(__dirname, '..', target)
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+
+const pathResolve = target => path.resolve(__dirname, '..', target)
 
 module.exports = {
     mode: 'production',
@@ -16,8 +17,10 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(), // 默认路径选取output.path
         new webpack.DllPlugin({
-            path: pathResolve('dll/[name]-manifest.json'),
+            context: pathResolve('dist'),
+            // 此处的name要与output中的library一致
             name: '[name]_library',
+            path: pathResolve('dll/[name]-manifest.json'),
         })
     ]
 }

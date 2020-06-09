@@ -1,10 +1,11 @@
 const path = require('path')
-const pathResolve = target => path.resolve(__dirname, '..', target)
 const webpack = require('webpack')
 const webpackConfig = require('./webpack.config')
 const merge = require('webpack-merge').smart
 const mockApi = require('mocker-api')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+
+const pathResolve = target => path.resolve(__dirname, '..', target)
 
 module.exports = merge(webpackConfig, {
     mode: 'development',

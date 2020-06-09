@@ -38,14 +38,14 @@ module.exports = smp.wrap(merge(WebpackConfig, {
                     minSize: 0,
                     minChunks: 1 //最少引入了1次
                 },
-                'moment': {
-                    name: 'moment',
-                    chunks: 'initial',
-                    priority: 5,
-                    test: /[\/]node_modules[\/]moment[\/]/,
-                    minSize: 100,
-                    minChunks: 1 //重复引入了几次
-                },
+                // 'moment': {
+                //     name: 'moment',
+                //     chunks: 'initial',
+                //     priority: 5,
+                //     test: /[\/]node_modules[\/]moment[\/]/,
+                //     minSize: 100,
+                //     minChunks: 1 //重复引入了几次
+                // },
                 //     'modules': {
                 //         name: 'modules',
                 //         chunks: 'initial',

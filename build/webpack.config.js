@@ -9,7 +9,7 @@ const vueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const isDev = process.env.NODE_ENV === 'development';
 
-const pathResolve = target => path.resolve(__dirname, '..', target)
+const pathResolve = target => path.resolve(__dirname, '../', target)
 const htmlConfig = require(pathResolve('public/config.js'))[isDev ? 'dev' : 'build']
 
 module.exports = {
@@ -125,9 +125,10 @@ module.exports = {
                     to: pathResolve('dist/assets/js'),
                     flatten: true,
                     ignore: ['other.js']
-                }
+                },
             ],
         ),
+
         new webpack.DllReferencePlugin({
             manifest: pathResolve('dll/vendor-manifest.json')
         }),
@@ -143,8 +144,7 @@ module.exports = {
         new AddAssetHtmlPlugin([
             {
                 filepath: pathResolve('dll/*.js'),
-                outputPath: pathResolve('dist/dll'),
             }
-        ])
+        ]),
     ]
 }
