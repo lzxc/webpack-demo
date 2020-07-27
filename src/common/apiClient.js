@@ -16,9 +16,9 @@ class ApiClient {
         showError = true,
         // showLoading = true,
         specialCode = ERRORCODELIST,
-        config: config
+        config = {}
     }) {
-        const instance = axios.create(...this.defaultConfig, ...config);
+        const instance = axios.create({ ...this.defaultConfig, ...config });
         ApiClient.setInterceptors(instance);
         return new Promise((resolve, reject) => {
             if (!url) {
@@ -41,7 +41,7 @@ class ApiClient {
                     //   if (showLoading) {
                     //     console.log("showLoading");
                     //   }
-                    if (code === "00000") {
+                    if (code === "000000") {
                         resolve(response.data);
                     } else {
                         // 后端respondBody中的code在错误code列表中时，统一处理
@@ -137,4 +137,4 @@ const apiClient = new ApiClient({
 });
 
 export default apiClient;
-export const { request } = apiClient;
+export const request = apiClient.request.bind(apiClient);

@@ -1,6 +1,7 @@
 <template>
   <div>
     <button @click="btn">点击</button>
+    <img :src="src" alt="">
   </div>
 </template>
 
@@ -9,6 +10,7 @@ export default {
   name: 'Home',
   data() {
     return {
+        src:require('assets/img/img.jpg')
     }
   },
   created() {

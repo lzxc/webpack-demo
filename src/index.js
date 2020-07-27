@@ -8,6 +8,7 @@ import Antd from 'ant-design-vue'
 
 
 import { request } from '@/common/apiClient'
+import apiClient from '@/common/apiClient'
 
 Vue.prototype.$http = request
 
@@ -24,7 +25,7 @@ Vue.prototype.$moment = moment;
 new Vue({
     router,
     render: h => h(App)
-  }).$mount("#app");
+}).$mount("#app");
 
 // function Conter() {
 //     var start = Date.now()
