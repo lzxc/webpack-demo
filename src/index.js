@@ -3,29 +3,27 @@
 import Vue from 'vue'
 import router from './router'
 import App from './App.vue'
-import moment from "moment";
+import moment from 'moment'
 import Antd from 'ant-design-vue'
 
-
 import { request } from '@/common/apiClient'
-import apiClient from '@/common/apiClient'
 
 Vue.prototype.$http = request
 
 import(
-    /* webpackPrefetch: true */
-    'assets/style/index.less'
+  /* webpackPrefetch: true */
+  'assets/style/index.less'
 )
-import "ant-design-vue/dist/antd.less";
+import 'ant-design-vue/dist/antd.less'
 
-moment.locale("zh-cn");
+moment.locale('zh-cn')
 Vue.use(Antd)
-Vue.prototype.$moment = moment;
+Vue.prototype.$moment = moment
 
 new Vue({
-    router,
-    render: h => h(App)
-}).$mount("#app");
+  router,
+  render: h => h(App)
+}).$mount('#app')
 
 // function Conter() {
 //     var start = Date.now()
