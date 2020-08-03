@@ -43,11 +43,13 @@ class ApiClient {
             if (code === '000000') {
               resolve(response.data)
             } else {
-              // 后端respondBody中的code在错误code列表中时，统一处理
-              if (showError && specialCode.includes(code)) {
-                console.log('包含在specialCode数组错误code里')
+              if (showError) {
                 message.error(response.msg)
                 return
+              }
+              // 后端respondBody中的code在错误code列表中时，统一处理
+              if (specialCode.includes(code)) {
+                // xxxx
               }
               reject(response)
             }
@@ -57,7 +59,6 @@ class ApiClient {
             if (showError) {
               console.log('axios响应错误打印', err)
               message.error(err.msg)
-              return
             }
             reject(err)
           }
@@ -125,7 +126,7 @@ class ApiClient {
 }
 
 const apiClient = new ApiClient({
-  timeout: 10000,
+  timeout: 20 * 1000,
   headers: {
     'Content-Type': 'application/json;chartset=utf-8'
   },
