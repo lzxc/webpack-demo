@@ -6,7 +6,7 @@ import App from './App.vue'
 import moment from 'moment'
 import Antd from 'ant-design-vue'
 
-import { request } from '@/common/apiClient'
+import { request } from '@/common/api-client'
 
 Vue.prototype.$http = request
 

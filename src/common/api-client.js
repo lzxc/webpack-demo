@@ -18,7 +18,6 @@ class ApiClient {
       // showLoading = false,
       cancelToken = false,
       specialCode = ERRORCODELIST,
-
       config = {}
     }) {
       const that = this
@@ -134,4 +133,4 @@ const apiClient = new ApiClient({
 })
 
 export default apiClient
-export const request = apiClient.request.bind(apiClient)
+export const request = apiClient.request
