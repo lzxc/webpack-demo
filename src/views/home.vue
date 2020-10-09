@@ -9,9 +9,9 @@
 </template>
 
 <script>
+import utils from '@lzxx/utils'
 
 export default {
-
   name: 'Home',
   data() {
     return {
@@ -19,6 +19,7 @@ export default {
     }
   },
   created() {
+    console.log(utils)
   },
   methods: {
     btn() {
