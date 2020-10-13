@@ -5,7 +5,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWepackPlugin = require('copy-webpack-plugin')
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
-const vueLoaderPlugin = require('vue-loader/lib/plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const ESLintPlugin = require('eslint-webpack-plugin')
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -33,16 +34,16 @@ module.exports = {
   module: {
     // noParse: /jquery|lodash/,
     rules: [
-      {
-        enforce: 'pre',
-        test: /\.(js|vue)$/,
-        loader: 'eslint-loader',
-        exclude: /node_modules/,
-        options: {
-          emitWarning: true,
-          formatter: require('eslint-friendly-formatter')
-        }
-      },
+    //   {
+    //     enforce: 'pre',
+    //     test: /\.(js|vue)$/,
+    //     loader: 'eslint-loader',
+    //     exclude: /node_modules/,
+    //     options: {
+    //       emitWarning: true,
+    //       formatter: require('eslint-friendly-formatter')
+    //     }
+    //   },
       {
         test: /\.vue$/,
         use: [{
@@ -124,7 +125,11 @@ module.exports = {
     ]
   },
   plugins: [
-    new vueLoaderPlugin(),
+    new VueLoaderPlugin(),
+    new ESLintPlugin({
+      emitWarning: true,
+      formatter: require('eslint-friendly-formatter')
+    }),
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: ['**/*', '!img', '!img/**', '!dll', '!dll/**']
     }),

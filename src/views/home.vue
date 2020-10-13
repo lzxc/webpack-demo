@@ -1,15 +1,11 @@
 <template>
   <div>
     <button @click="btn">点击</button>
-    <img
-      :src="src"
-      alt=""
-    >
+    <img :src="src" alt="">
   </div>
 </template>
 
 <script>
-import utils from '@lzxx/utils'
 
 export default {
   name: 'Home',
@@ -17,9 +13,6 @@ export default {
     return {
       src: require('assets/img/img.jpg')
     }
-  },
-  created() {
-    console.log(utils)
   },
   methods: {
     btn() {
