@@ -3,26 +3,20 @@ const merge = require('webpack-merge').smart
 const SpeedMeasureWebpackPlugin = require('speed-measure-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const TerserWebpackPlugin = require('terser-webpack-plugin')
 
-const path = require('path')
-const pathResolve = target => path.resolve(__dirname, '..', target)
 const smp = new SpeedMeasureWebpackPlugin()
 
 module.exports = smp.wrap(merge(WebpackConfig, {
   mode: 'production',
   devtool: 'cheap-module-source-map',
   optimization: {
-    usedExports: true,
+    // usedExports: true,
     minimizer: [
-      new UglifyJsPlugin(
-        {
-          // 压缩js
-          // cache: true,
-          parallel: true,
-          sourceMap: true
-        }
-      ),
+      new TerserWebpackPlugin({
+        parallel: false,
+        sourceMap: true
+      }),
       new OptimizeCssAssetsPlugin({})
     ],
     runtimeChunk: {

@@ -59,8 +59,7 @@ module.exports = {
           cacheDirectory: true
         },
         // include: [
-        //     // pathResolve('node_modules/three'),
-        //     pathResolve('src')
+        //   pathResolve('src')
         // ],
         exclude: /node_modules/
       },
