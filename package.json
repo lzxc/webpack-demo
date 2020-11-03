@@ -56,7 +56,6 @@
     "@babel/polyfill": "^7.8.7",
     "@babel/runtime": "^7.9.2",
     "@babel/runtime-corejs3": "^7.9.2",
-    "@lzxx/utils": "0.0.10",
     "ant-design-vue": "^1.6.2",
     "core-js": "^3.6.5",
     "eslint-plugin-vue": "^7.0.1",

@@ -41,14 +41,6 @@ module.exports = smp.wrap(merge(WebpackConfig, {
         //     minSize: 100,
         //     minChunks: 1 //重复引入了几次
         // },
-        //     'modules': {
-        //         name: 'modules',
-        //         chunks: 'initial',
-        //         priority: 5,
-        //         test: /[\/]node_modules[\/]core-js-pure[\/]modules[\/]/,
-        //         minSize: 100,
-        //         minChunks: 1 //重复引入了几次
-        //     },
         // common: {
         //     name: 'common',
         //     chunks: 'initial',
