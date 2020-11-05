@@ -29,7 +29,8 @@ module.exports = {
       'assets': pathResolve('src/assets'),
       'views': pathResolve('src/views')
     },
-    extensions: ['.js', '.json', '.vue']
+    extensions: ['.js', '.json', '.vue'],
+    symlinks: false
   },
   module: {
     // noParse: /jquery|lodash/,

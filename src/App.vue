@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <router-link to="/home">home</router-link>
+    <router-link to="/components-demo">components-demo</router-link>
     <router-view />
   </div>
 </template>
