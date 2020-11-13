@@ -10,10 +10,7 @@ export default {
     return {
     }
   },
-  async  created() {
-    const a = await import('assets/js/a.js')
-    const b = await import('assets/js/b.js')
-    console.log({ a, b })
+  created() {
   },
   methods: {
   }
