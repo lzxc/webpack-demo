@@ -1,15 +1,19 @@
 <template>
   <div id="app">
-    <router-link to="/home">home</router-link>
-    <router-link to="/components-demo">components-demo</router-link>
+    <router-link
+      v-for="route in permission_routes"
+      :key="route.path"
+      :to="route.path"
+    >{{ route.name }} / </router-link>
     <router-view />
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  data() {
-    return {}
+  computed: {
+    ...mapGetters(['permission_routes'])
   }
 }
 </script>

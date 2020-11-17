@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-const routes = [
+export const defaultRoutes = [
   {
     path: '/home',
     name: 'Home',
@@ -13,11 +13,16 @@ const routes = [
     path: '/components-demo',
     name: 'ComponentsDemo',
     component: () => import('views/components-demo/test.vue')
+  },
+  {
+    path: '/test-compose',
+    name: 'TestCompose',
+    component: () => import('views/components-demo/test-compose.vue')
   }
 ]
 
 const router = new VueRouter({
-  routes
+  routes: defaultRoutes
 })
 
 export default router
