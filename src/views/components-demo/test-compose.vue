@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import hoc from './components/withPromise'
+import hoc from './components/withLog'
 
 export default {
   name: 'TestCompose',
