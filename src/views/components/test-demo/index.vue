@@ -1,11 +1,10 @@
 <template>
-  <div>123</div>
+  <div>测试demo</div>
 </template>
 
 <script>
-
 export default {
-  name: '',
+  name: 'TestDemo',
   data() {
     return {
     }
@@ -17,5 +16,5 @@ export default {
 }
 </script>
 
-<style scoped lang=''>
+<style scoped lang='less'>
 </style>

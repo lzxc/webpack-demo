@@ -1,23 +1,58 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
+import Layout from '@/layout'
 Vue.use(VueRouter)
 
 export const defaultRoutes = [
   {
-    path: '/home',
-    name: 'Home',
-    component: () => import('views/home.vue')
+    path: '/',
+    component: Layout,
+    redirect: '/home',
+    children: [
+      {
+        path: 'home',
+        name: 'Home',
+        meta: {
+          icon: 'ant-icon-home',
+          title: 'Home'
+        },
+        component: () => import('views/home.vue')
+      }
+    ]
   },
   {
-    path: '/components-demo',
-    name: 'ComponentsDemo',
-    component: () => import('views/components-demo/test.vue')
+    path: '/components',
+    component: Layout,
+    meta: {
+      icon: 'ant-icon-folder-add',
+      title: 'Components'
+    },
+    children: [
+      {
+        path: 'test-compose',
+        name: 'TestCompose',
+        meta: {
+          icon: 'ant-icon-switcher',
+          title: '测试用组件'
+        },
+        component: () => import('views/components/test-compose')
+      },
+      {
+        path: 'test-demo',
+        name: 'TestDemo',
+        meta: {
+          icon: 'ant-icon-switcher',
+          title: '测试demo'
+        },
+        component: () => import('views/components/test-demo')
+      }
+    ]
   },
   {
-    path: '/test-compose',
-    name: 'TestCompose',
-    component: () => import('views/components-demo/test-compose.vue')
+    path: '/hidden',
+    component: Layout,
+    hidden: true,
+    children: []
   }
 ]
 

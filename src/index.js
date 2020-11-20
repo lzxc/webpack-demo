@@ -7,17 +7,17 @@ import App from './App.vue'
 import moment from 'moment'
 import Antd from 'ant-design-vue'
 
-import './permission' // permission control
-
-import { request } from '@/common/api-client'
-
-Vue.prototype.$http = request
-
 import(
   /* webpackPrefetch: true */
   'assets/style/index.less'
 )
 import 'ant-design-vue/dist/antd.less'
+
+import './permission' // permission control
+
+import { request } from '@/common/api-client'
+Vue.prototype.$http = request
+Vue.prototype.$log = window.console.log
 
 moment.locale('zh-cn')
 Vue.use(Antd)
