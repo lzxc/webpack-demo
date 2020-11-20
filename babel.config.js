@@ -1,9 +1,10 @@
 module.exports = {
   presets: [
+    '@vue/babel-preset-jsx',
     [
       '@babel/preset-env'
       // {
-      //     "modules": false,
+      // 'modules': false
       //     "useBuiltIns": "usage",
       //     "corejs": 3,
       //     "targets": {
@@ -12,6 +13,7 @@ module.exports = {
       //     }
       // }
     ]
+
   ],
   plugins: [
     '@babel/plugin-proposal-class-properties',

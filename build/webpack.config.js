@@ -25,6 +25,7 @@ module.exports = {
   },
   resolve: {
     alias: {
+      'vue': 'vue/dist/vue.esm.js',
       '@': pathResolve('src'),
       'assets': pathResolve('src/assets'),
       'views': pathResolve('src/views')
@@ -35,16 +36,16 @@ module.exports = {
   module: {
     // noParse: /jquery|lodash/,
     rules: [
-    //   {
-    //     enforce: 'pre',
-    //     test: /\.(js|vue)$/,
-    //     loader: 'eslint-loader',
-    //     exclude: /node_modules/,
-    //     options: {
-    //       emitWarning: true,
-    //       formatter: require('eslint-friendly-formatter')
-    //     }
-    //   },
+      // {
+      //   enforce: 'pre',
+      //   test: /\.(js|vue)$/,
+      //   loader: 'eslint-loader',
+      //   exclude: /node_modules/,
+      //   options: {
+      //     emitWarning: true,
+      //     formatter: require('eslint-friendly-formatter')
+      //   }
+      // },
       {
         test: /\.vue$/,
         use: [{
