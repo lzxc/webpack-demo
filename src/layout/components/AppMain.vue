@@ -1,8 +1,8 @@
 <template>
   <div class="app-main">
-    <transition name="fate-transform" mode="out-in">
+    <transition name="fade-transform" mode="out-in">
       <keep-alive>
-        <router-view />
+        <router-view :key="key" />
       </keep-alive>
     </transition>
   </div>
@@ -28,5 +28,9 @@ export default {
 </script>
 
 <style scoped lang='less'>
-.app-main{}
+.app-main{
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
 </style>
