@@ -1,7 +1,7 @@
 <template>
   <div class="app-main">
     <transition name="fade-transform" mode="out-in">
-      <keep-alive>
+      <keep-alive include="false">
         <router-view :key="key" />
       </keep-alive>
     </transition>
